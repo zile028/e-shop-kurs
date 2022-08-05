@@ -8,7 +8,7 @@ function Product({ product }) {
       <div className="product-info text-center">
         <h6 className="my-3">{product.title}</h6>
         <Link to={`/product/${product.id}`} className="btn btn-primary">
-          Buy
+          See more
         </Link>
       </div>
     </div>

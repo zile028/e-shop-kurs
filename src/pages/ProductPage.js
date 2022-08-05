@@ -6,6 +6,7 @@ import SingleProductImages from "../components/SingleProductImages";
 function ProductPage({ products, addToCart }) {
   const [product, setProduct] = useState([]);
   const [mainImage, setMainImage] = useState("");
+  const [showNotify, setShowNotify] = useState(false);
   const productId = useParams();
 
   useEffect(() => {
@@ -22,6 +23,10 @@ function ProductPage({ products, addToCart }) {
 
   const addProductToCart = () => {
     addToCart(product);
+    setShowNotify(true);
+    setTimeout(() => {
+      setShowNotify(false);
+    }, 2000);
   };
 
   return (
@@ -66,6 +71,11 @@ function ProductPage({ products, addToCart }) {
             <button className="btn btn-danger w-100" onClick={addProductToCart}>
               ADD TO CART
             </button>
+            {showNotify && (
+              <div class="alert alert-info mt-2" role="alert">
+                Product added in cart.
+              </div>
+            )}
           </div>
         </div>
       </div>

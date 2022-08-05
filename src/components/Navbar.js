@@ -7,7 +7,7 @@ import MenuList from "./MenuList";
 function Navbar({ cart }) {
   return (
     <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
+      <div className="container">
         <Logo />
 
         <button

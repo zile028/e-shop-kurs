@@ -12,7 +12,7 @@ function ShopPage({ products }) {
     <>
       <Header title={"SHOP"} />
       <section className="container py-5">
-        <div className="products-wrapper row">{productsLayout()}</div>
+        <div className="products-wrapper ">{productsLayout()}</div>
       </section>
     </>
   );

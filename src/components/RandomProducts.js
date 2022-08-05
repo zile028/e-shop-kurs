@@ -16,7 +16,7 @@ function RandomProducts({ products }) {
   return (
     <section className="random-product container py-5">
       <h2 className="text-center mb-3">Our products</h2>
-      <div className="products-wrapper row">{productsLayout()}</div>
+      <div className="products-wrapper">{productsLayout()}</div>
     </section>
   );
 }
