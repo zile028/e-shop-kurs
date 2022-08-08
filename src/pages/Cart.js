@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+import Modal from "../components/Modal";
 
-function Cart({ cart, removeFromCart }) {
-  const [totalPrice, setTotalPrice] = useState(null);
-  const [cartListLayout, setCartListLayout] = useState([]);
+function Cart({ cart, removeFromCart, clearCart }) {
+  const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    let total = 0;
+  const cartListLayouts = () => {
+    let totalSum = 0;
     let cartList = cart.map((el, index) => {
-      total += el.price * el.count;
+      totalSum += el.count * el.price;
       return (
-        <tr key={index}>
-          <td>{el.title}</td>
-          <td className="text-end">{el.price}</td>
-          <td className="text-end">{el.count}</td>
-          <td className="text-end">{el.price * el.count}$</td>
-          <td className="text-end">
+        <div key={index} className="d-flex mb-1 bg-light p-2 rounded-3">
+          <div className="col-md-2">
+            <img className="img-fluid" src={el.thumbnail} alt="" />
+          </div>
+          <div className="flex-grow-1 w-auto px-2">
+            <h3>{el.title}</h3>
+            <p>
+              {el.count} x ${el.price}
+            </p>
+          </div>
+          <div className="width-auto">
             <button
               className="btn btn-sm btn-danger"
               onClick={() => {
@@ -24,43 +29,37 @@ function Cart({ cart, removeFromCart }) {
             >
               <i className="fa-solid fa-trash-can"></i>
             </button>
-          </td>
-        </tr>
+          </div>
+        </div>
       );
     });
-    setCartListLayout(cartList);
-    setTotalPrice(total);
-  }, [cart]);
+
+    let total = (
+      <div key={cartList.length} className="d-flex mb-1 bg-light p-2 rounded-3">
+        <div className="col flex-grow-1">
+          <h4 className="fw-bold">Total price: {totalSum}$</h4>
+        </div>
+        <div>
+          <button
+            className="btn btn-success"
+            onClick={() => setShowModal(true)}
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
+    );
+
+    return [...cartList, total];
+  };
 
   return (
     <>
       <Header title={"My cart"} />
       <section className="container py-5">
-        {cart.length ? (
-          <table className="table bg-light">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th className="text-end">Price</th>
-                <th className="text-end">Count</th>
-                <th className="text-end">Total</th>
-                <th className="text-end">Remove</th>
-              </tr>
-            </thead>
-            <tbody>{cartListLayout}</tbody>
-            {totalPrice > 0 && (
-              <tfoot className="fw-bold">
-                <tr>
-                  <td colSpan={3}>Total price</td>
-                  <td className="text-end">{totalPrice}$</td>
-                </tr>
-              </tfoot>
-            )}
-          </table>
-        ) : (
-          <h3>Your cart is empty!</h3>
-        )}
+        {cart.length ? cartListLayouts() : <h3>Your cart is empty!</h3>}
       </section>
+      {showModal && <Modal clearCart={clearCart} setShowModal={setShowModal} />}
     </>
   );
 }

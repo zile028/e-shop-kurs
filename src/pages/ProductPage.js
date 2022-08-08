@@ -15,7 +15,7 @@ function ProductPage({ products, addToCart }) {
     );
     setProduct(currentProduct);
     setMainImage(currentProduct.thumbnail);
-  }, []);
+  }, [productId.id, products]);
 
   const previewImage = (img) => {
     setMainImage(img);
@@ -72,7 +72,7 @@ function ProductPage({ products, addToCart }) {
               ADD TO CART
             </button>
             {showNotify && (
-              <div class="alert alert-info mt-2" role="alert">
+              <div className="alert alert-info mt-2" role="alert">
                 Product added in cart.
               </div>
             )}
