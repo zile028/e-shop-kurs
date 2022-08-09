@@ -27,7 +27,7 @@ function Navbar({ cart }) {
             <li className="nav-item">
               <NavLink className="nav-link" to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
-                {cart.length}
+                {cart.length > 0 && cart.length}
               </NavLink>
             </li>
           </ul>
