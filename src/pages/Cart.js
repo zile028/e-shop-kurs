@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import Modal from "../components/Modal";
+import Checkout from "../components/Checkout";
 
 function Cart({ cart, removeFromCart, clearCart }) {
-  const [showModal, setShowModal] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const cartListLayouts = () => {
     let totalSum = 0;
@@ -42,7 +42,7 @@ function Cart({ cart, removeFromCart, clearCart }) {
         <div>
           <button
             className="btn btn-success"
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowCheckout(true)}
           >
             Checkout
           </button>
@@ -59,7 +59,9 @@ function Cart({ cart, removeFromCart, clearCart }) {
       <section className="container py-5">
         {cart.length ? cartListLayouts() : <h3>Your cart is empty!</h3>}
       </section>
-      {showModal && <Modal clearCart={clearCart} setShowModal={setShowModal} />}
+      {showCheckout && (
+        <Checkout clearCart={clearCart} setShowModal={setShowCheckout} />
+      )}
     </>
   );
 }

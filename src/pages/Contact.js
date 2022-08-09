@@ -14,46 +14,29 @@ function Contact() {
     email: false,
     message: false,
   });
+  
   const [haveErr, setHaveErr] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
   const sendMessage = (e) => {
     e.preventDefault();
     let copyErr = { ...err };
-    let isErr = false;
-    if (!inputData.firstName) {
-      copyErr.firstName = true;
-      isErr = true;
-    } else {
-      copyErr.firstName = false;
-    }
 
-    if (!inputData.lastName) {
-      copyErr.lastName = true;
-      isErr = true;
-    } else {
-      copyErr.lastName = false;
-    }
+    copyErr.firstName = !inputData.firstName;
+    copyErr.lastName = !inputData.lastName;
+    copyErr.email = !inputData.email;
+    copyErr.message = !inputData.message;
 
-    if (!inputData.email) {
-      copyErr.email = true;
-      isErr = true;
-    } else {
-      copyErr.email = false;
-    }
-
-    if (!inputData.message) {
-      copyErr.message = true;
-      isErr = true;
-    } else {
-      copyErr.message = false;
-    }
-    if (isErr) {
-      setHaveErr(true);
-      setErr(copyErr);
-    } else {
-      setIsSent(true);
-    }
+    setHaveErr(
+      copyErr.firstName || copyErr.lastName || copyErr.email || copyErr.message
+    );
+    setIsSent(
+      !copyErr.firstName &&
+        !copyErr.lastName &&
+        !copyErr.email &&
+        !copyErr.message
+    );
+    setErr(copyErr);
   };
 
   const onInputHandler = (e) => {
